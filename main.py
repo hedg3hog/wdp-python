@@ -21,10 +21,10 @@ def winner_determination(bids:list):
     x = 0 # current first item
 
     while x < len(bids)/2 + 1:
-        c_path = list()
+        c_path = list() # current path
         c_bids = bids[x:] # bids currently active
-        c_sum = 0
-        c_remaining = bids_sum(c_bids)
+        c_sum = 0 # current summ
+        c_remaining = bids_sum(c_bids) # highest remaining bids can contribute
         for i,b in enumerate(c_bids):
             if bid_available(b, c_path):
                 c_path.append(b)
