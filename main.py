@@ -153,21 +153,24 @@ def winner_determination_v2(bids):
     x = 0 # current first item
 
     for x in tqdm(range(len(bids) // 2 + 1)): # 
-        c_path = list() # current path
         c_bids = bids[x:] # bids currently active
-        c_sum = 0 # current summ
+        c_path = [c_bids[0],] # current path
+        c_sum = c_path[0][1] # current summ
+        c_bids = prune_bids(c_bids, c_path)
         c_remaining = bids_sum(c_bids) # highest remaining bids can contribute
-        for b in c_bids:
-            if bid_available(b, c_path):
-                c_path.append(b)
-                c_sum += b[1]
-                if c_sum > f:
-                    f = c_sum
-                    h_path = c_path
-                c_remaining -= b[1]
-                if (c_sum + c_remaining) < f:
-                    break
-        x +=1
+        while len(c_bids) > 0:
+            b = c_bids.pop(0)
+            c_path.append(b)
+            c_sum += b[1]
+            if c_sum > f:
+                f = c_sum
+                h_path = c_path
+            c_bids = prune_bids(c_bids, c_path)
+            c_remaining = bids_sum(c_bids)
+            if (c_sum + c_remaining) < f:
+                break
+
+        
     
     return h_path
 
@@ -184,4 +187,7 @@ def winner_determination_v2(bids):
 
 
 #print(winner_determination(bids5) == winner_determination_old(bids5))
+
+
+
 
