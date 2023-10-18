@@ -37,7 +37,7 @@ def winner_determination_old(bids:list):
     h_path = list() # path of highest revenue
     x = 0 # current first item
 
-    for x in tqdm(range(len(bids) // 2 + 1)): # TODO: change to full list
+    for x in tqdm(range(len(bids) // 2 + 1)): # 
         c_path = list() # current path
         c_bids = bids[x:] # bids currently active
         c_sum = 0 # current summ
@@ -97,19 +97,75 @@ def load_bids(filename):
 
     return bids
 
+def benchmark_wd(bids):
+    t = time.time()
+    w = winner_determination(bids)
+    t = (time.time()-t)
+    t = round(t, ndigits=4)
+
+    return w, t
 
 
-bids1 = load_bids("./bids/bids01.json") # 100 bids
-bids2 = load_bids("./bids/bids01.json") # 10 bids
+class timer():
+    def __init__(self, name="timer") -> None:
+        self.timer = time.time()
+        self.name = name
+    
+    def start(self):
+        self.timer = time.time()
+        print(f"{self.name} started")
+
+    def stop(self):
+        if self.timer == 0:
+            print(f"{self.name} already stopped")
+            return 0
+        t = (time.time()-self.timer)
+        t = round(t, ndigits=4)
+        print(f"{self.name} stopped after {t} seconds")
+        self.timer = 0
+        return t
+
+    def time(self):
+        t = (time.time()-self.timer)
+        t = round(t, ndigits=4)
+        print(f"{self.name} running: {t} seconds")
+        return t
 
 
 
-t = time.time()
-print(winner_determination(bids))
 
-t = (time.time()-t)
+#bids1 = load_bids("./bids/bids01.json") # 100 bids
+#bids2 = load_bids("./bids/bids02.json") # 10 bids
+#bids3 = load_bids("./bids/bids03.json") # 100 bids
+#bids4 = load_bids("./bids/bids04.json") # 1000 bids
+bids5 = load_bids("./bids/bids05.json") # 1000 bids
+#bids6 = load_bids("./bids/bids06.json") # 10000 bids
 
-t = round(t, ndigits=4)
 
 
-print(f"took {t} seconds")
+b1 = bids5[0:200]
+b2 = bids5[200:400]
+b3 = bids5[400:600]
+b4 = bids5[600:800]
+b5 = bids5[800:]
+
+#print(winner_determination(bids5) == winner_determination_old(bids5))
+t = timer("splited wdp")
+w1 = winner_determination(b1)
+w2 = winner_determination(b2)
+w3 = winner_determination(b3)
+w4 = winner_determination(b4)
+w5 = winner_determination(b5)
+w = w1+w2+w3+w4+w5
+t.time()
+w = winner_determination(w)
+
+t.stop()
+t2 = timer("full wdp")
+w0 = winner_determination(bids5)
+t2.stop()
+print(w0)
+print()
+print()
+print(w)
+print(w == w0)
