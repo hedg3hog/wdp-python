@@ -60,6 +60,7 @@ def winner_determination_old(bids:list):
         
 def prune_bids(bids:list, path):
     """Returns only bids with items that are not already taken"""
+    bids = bids.copy()
     s = set()
     for b in path:
         s = s.union(b[0])
@@ -144,7 +145,32 @@ def split_wd(bids):
     winner_list = winner_determination(winner_list + bids_new)
 
     return winner_list
-        
+
+def winner_determination_v2(bids):
+    bids = sorted(bids, key= lambda bid: -bid[1]) # highest to lowest bid
+    f = 0 # highest revenue
+    h_path = list() # path of highest revenue
+    x = 0 # current first item
+
+    for x in tqdm(range(len(bids) // 2 + 1)): # 
+        c_path = list() # current path
+        c_bids = bids[x:] # bids currently active
+        c_sum = 0 # current summ
+        c_remaining = bids_sum(c_bids) # highest remaining bids can contribute
+        for b in c_bids:
+            if bid_available(b, c_path):
+                c_path.append(b)
+                c_sum += b[1]
+                if c_sum > f:
+                    f = c_sum
+                    h_path = c_path
+                c_remaining -= b[1]
+                if (c_sum + c_remaining) < f:
+                    break
+        x +=1
+    
+    return h_path
+
 
 #bids1 = load_bids("./bids/bids01.json") # 100 bids
 #bids2 = load_bids("./bids/bids02.json") # 10 bids
