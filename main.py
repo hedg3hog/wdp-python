@@ -133,6 +133,18 @@ class timer():
 
 
 
+def split_wd(bids):
+    winner_list = list()
+    for i in range(0, len(bids), 200):
+        x = min(i + 200, len(bids))
+        winner_list += winner_determination(bids[i:x])
+   
+    winner_list = winner_determination(winner_list)
+    bids_new = prune_bids(bids.copy(), winner_list)
+    winner_list = winner_determination(winner_list + bids_new)
+
+    return winner_list
+        
 
 #bids1 = load_bids("./bids/bids01.json") # 100 bids
 #bids2 = load_bids("./bids/bids02.json") # 10 bids
@@ -170,12 +182,10 @@ t2 = timer("full wdp")
 w0 = winner_determination(bids5)
 t2.stop()
 
-l = [i in w0 for i in w]
 #print(l)
 print()
+w_split = split_wd(bids5)
 print(w == w0)
-print(bids_sum(w), bids_sum(w0), bids_sum(w_neu))
-print(len(w), len(w0), len(w_neu))
+print(bids_sum(w), bids_sum(w0), bids_sum(w_neu), bids_sum(w_split))
+print(len(w), len(w0), len(w_neu), len(w_split))
 
-print(all(l))
-print(any(l))
