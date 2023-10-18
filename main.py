@@ -175,18 +175,15 @@ def winner_determination_v2(bids):
     return h_path
 
 
-#bids1 = load_bids("./bids/bids01.json") # 100 bids
-#bids2 = load_bids("./bids/bids02.json") # 10 bids
-#bids3 = load_bids("./bids/bids03.json") # 100 bids
-#bids4 = load_bids("./bids/bids04.json") # 1000 bids
-#bids5 = load_bids("./bids/bids05.json") # 1000 bids
-#bids6 = load_bids("./bids/bids06.json") # 10000 bids
+#bids = load_bids("./bids/bids01.json") # 100 bids
+#bids = load_bids("./bids/bids02.json") # 10 bids
+#bids = load_bids("./bids/bids03.json") # 100 bids
+#bids = load_bids("./bids/bids04.json") # 1000 bids
+#bids = load_bids("./bids/bids05.json") # 1000 bids
+#bids = load_bids("./bids/bids06.json") # 10000 bids
 
 
 
-
-
-#print(winner_determination(bids5) == winner_determination_old(bids5))
 
 
 
