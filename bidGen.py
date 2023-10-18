@@ -1,3 +1,4 @@
+import random
 def gen_bids(n, items, max_items_per_bid=None):
     "returns a list of n bid tuples ((item_choice), value)"
     bids = list()
