@@ -93,7 +93,7 @@ def load_bids(filename):
         f.close()
     bids = json.loads(s)
     for i in range(len(bids)):
-        bids[i][0] = set(bids[i][0])
+        bids[i] = (set(bids[i][0]), bids[i][1])
 
     return bids
 
@@ -159,13 +159,23 @@ w5 = winner_determination(b5)
 w = w1+w2+w3+w4+w5
 t.time()
 w = winner_determination(w)
-
+t.time()
+tp = timer("prune+WD")
+b_neu = prune_bids(bids5.copy(), w)
+tp.time()
+w_neu = winner_determination(b_neu+w)
+tp.stop()
 t.stop()
 t2 = timer("full wdp")
 w0 = winner_determination(bids5)
 t2.stop()
-print(w0)
+
+l = [i in w0 for i in w]
+#print(l)
 print()
-print()
-print(w)
 print(w == w0)
+print(bids_sum(w), bids_sum(w0), bids_sum(w_neu))
+print(len(w), len(w0), len(w_neu))
+
+print(all(l))
+print(any(l))
