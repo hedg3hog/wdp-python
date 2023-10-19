@@ -1,14 +1,17 @@
 from wdp import * 
 
-#bids = load_bids("./bids/bids01.json") # 100 bids
-#bids = load_bids("./bids/bids02.json") # 10 bids
-#bids = load_bids("./bids/bids03.json") # 100 bids
-#bids = load_bids("./bids/bids04.json") # 1000 bids
-#bids = load_bids("./bids/bids05.json") # 1000 bids
-bids = load_bids("./bids/bids06.json") # 10000 bids
+bid_sums = list()
+winners = list()
+times = list()
 
-t = timer()
-#w = split_wd(bids)
-w = winner_determination_v2(bids)
-t.stop()
-print(bids_sum(w))
+for i in range(6):
+    bids = load_bids(f"./bids/bids{(i+1):02}.json")
+    print(f"Loaded bids{(i+1):02}.json")
+    t = timer(f"A3: bids{(i+1):02}")
+    winners.append(split_wd(bids, subset_size=200))
+    times.append(t.stop())
+    bid_sums.append(bids_sum(winners[i]))
+    print(bid_sums[i])
+
+print(bid_sums)
+print(times)

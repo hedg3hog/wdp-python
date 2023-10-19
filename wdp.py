@@ -10,7 +10,7 @@ def winner_determination(bids:list):
     h_path = list() # path of highest revenue
     x = 0 # current first item
 
-    for x in tqdm(range(len(bids))): # TODO: change to full list
+    for x in tqdm(range(len(bids))): # 
         c_path = list() # current path
         c_bids = bids[x:] # bids currently active
         c_sum = 0 # current summ
@@ -160,22 +160,48 @@ def wd_w_o_progress(bids:list):
     return h_path
 
 
-def split_wd(bids):
-    winner_list = list()
-    for i in tqdm(range(0, len(bids), 200)):
-        x = min(i + 200, len(bids))
-        winner_list += wd_w_o_progress(bids[i:x])
+def wd_v2_no_progress(bids):
+    bids = sorted(bids, key= lambda bid: -bid[1]) # highest to lowest bid
+    f = 0 # highest revenue
+    h_path = list() # path of highest revenue
+    x = 0 # current first item
+
+    for x in range(len(bids) // 2 + 1): # 
+        c_bids = bids[x:] # bids currently active
+        c_path = [bids[x],] # current path
+        c_sum = c_path[0][1] # current summ
+        c_bids = prune_bids(c_bids, c_path)
+        c_remaining = bids_sum(c_bids) # highest remaining bids can contribute
+        while len(c_bids) > 0:
+            b = c_bids.pop(0)
+            c_path.append(b)
+            c_sum += b[1]
+            if c_sum > f:
+                f = c_sum
+                h_path = c_path
+            c_bids = prune_bids(c_bids, c_path)
+            c_remaining = bids_sum(c_bids)
+            if (c_sum + c_remaining) < f:
+                break
+                    
+    return h_path
+
+def split_wd(bids, subset_size = 200, max_winners=500):
+    
+    last_size = len(bids)+1
+    while len(bids) > max_winners:
+        winner_list = list()
+        if last_size == len(bids):
+            break
+        last_size = len(bids)
+        for i in tqdm(range(0, len(bids), subset_size)):
+            x = min(i + subset_size, len(bids))
+            winner_list += wd_v2_no_progress(bids[i:x])
+        bids = winner_list
+
    
-    if len(winner_list) > 1000:
-        winner_list = split_wd(winner_list)
-    else:
-        winner_list = winner_determination(winner_list)
-    bids_new = prune_bids(bids, winner_list)
-    bids_new += winner_list
-    if len(bids_new) > 1000:
-        winner_list = split_wd(bids_new)
-    else:
-        winner_list = winner_determination(bids_new)
+    
+    winner_list = winner_determination_v2(bids)
 
     return winner_list
 
@@ -187,7 +213,7 @@ def winner_determination_v2(bids):
 
     for x in tqdm(range(len(bids) // 2 + 1)): # 
         c_bids = bids[x:] # bids currently active
-        c_path = [c_bids[0],] # current path
+        c_path = [bids[x],] # current path
         c_sum = c_path[0][1] # current summ
         c_bids = prune_bids(c_bids, c_path)
         c_remaining = bids_sum(c_bids) # highest remaining bids can contribute
@@ -203,8 +229,6 @@ def winner_determination_v2(bids):
             if (c_sum + c_remaining) < f:
                 break
 
-        
-    
     return h_path
 
 
