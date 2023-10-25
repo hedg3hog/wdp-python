@@ -251,3 +251,12 @@ def split_wdp_ed_bidsize(bids):
     w2 = winner_determination_v2(bids[1::2])
 
     return winner_determination_v2(w1+w2)
+
+def split_wdp_iterate(bids, subset_size = 1000):
+
+    bids = sorted(bids, key= lambda bid: -bid[1])
+    winner_list = list()
+    for i in range(0, len(bids), subset_size):
+            x = min(i + subset_size, len(bids))
+            winner_list = winner_determination_v2(winner_list + bids[i:x])
+    return winner_list
