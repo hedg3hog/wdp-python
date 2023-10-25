@@ -233,9 +233,11 @@ def winner_determination_v2(bids):
 
 
 
+def split_wdp_ed_value(bids):
+    bids = sorted(bids, key= lambda bid: -bid[1])
+    
+    w1 = winner_determination_v2(bids[::2])
+    w2 = winner_determination_v2(bids[1::2])
 
-
-
-
-
+    return winner_determination_v2(w1+w2)
 
