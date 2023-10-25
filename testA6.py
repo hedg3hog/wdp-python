@@ -3,6 +3,7 @@ from wdp import *
 bid_sums = list()
 winners = list()
 times = list()
+valitations = list()
 
 for i in range(6):
     bids = load_bids(f"./bids/bids{(i+1):02}.json")
@@ -12,6 +13,8 @@ for i in range(6):
     times.append(t.stop())
     bid_sums.append(bids_sum(winners[i]))
     print(bid_sums[i])
+    valitations.append(validate_winners(winners[i]))
 
 print(bid_sums)
 print(times)
+print(valitations)

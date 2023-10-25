@@ -5,12 +5,13 @@ from tqdm import tqdm
 
 def validate_winners(winners:list):
     items = list()
-    for w in winner_determination:
+    for w in winners:
         for i in w[0]:
             if i in items:
                 return False
             else:
                 items.append(i)
+    return True
 
 
 
