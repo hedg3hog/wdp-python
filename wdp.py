@@ -3,6 +3,18 @@ import time
 from tqdm import tqdm
 
 
+def validate_winners(winners:list):
+    items = list()
+    for w in winner_determination:
+        for i in w[0]:
+            if i in items:
+                return False
+            else:
+                items.append(i)
+
+
+
+
 def winner_determination(bids:list):
     """hopefully solves wdp, takes maybe long"""
     bids = sorted(bids, key= lambda bid: -bid[1]) # highest to lowest bid
