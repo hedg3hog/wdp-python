@@ -224,7 +224,7 @@ def winner_determination_v2(bids):
     h_path = list() # path of highest revenue
     x = 0 # current first item
 
-    for x in tqdm(range(len(bids) // 2 + 1)): # 
+    for x in tqdm(range(len(bids) // 2 + 1), leave=False): # 
         c_bids = bids # bids currently active
         c_path = [bids[x],] # current path
         c_sum = c_path[0][1] # current summ
@@ -269,7 +269,7 @@ def split_wdp_iterate(bids, subset_size = 1000):
 
     bids = sorted(bids, key= lambda bid: -bid[1])
     winner_list = list()
-    for i in range(0, len(bids), subset_size):
+    for i in tqdm(range(0, len(bids), subset_size), leave=False):
             x = min(i + subset_size, len(bids))
             winner_list = winner_determination_v2(winner_list + bids[i:x])
     return winner_list

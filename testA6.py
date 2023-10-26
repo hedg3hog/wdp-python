@@ -9,7 +9,7 @@ for i in range(7):
     bids = load_bids(f"./bids/bids{(i+1):02}.json")
     print(f"Loaded bids{(i+1):02}.json")
     t = timer(f"A3: bids{(i+1):02}")
-    winners.append(split_wdp_iterate(bids, subset_size=100))
+    winners.append(split_wdp_iterate(bids, subset_size=1000))
     times.append(t.stop())
     bid_sums.append(bids_sum(winners[i]))
     print(bid_sums[i])
