@@ -258,7 +258,7 @@ def split_wdp_ed_value(bids):
 
 def split_wdp_ed_bidsize(bids):
     """splited in 2 subsets, every 2. item of a sorted list, sorted by bid size"""
-    bids = sorted(bids, key= lambda bid: len(bid[0]))
+    bids = sorted(bids, key= lambda bid: len(bid[0])) # sort by length of bid 
 
     w1 = winner_determination_v2(bids[::2])
     w2 = winner_determination_v2(bids[1::2])

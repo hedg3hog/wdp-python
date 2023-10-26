@@ -5,7 +5,7 @@ winners = list()
 times = list()
 validations = list()
 
-for i in range(6):
+for i in range(7):
     bids = load_bids(f"./bids/bids{(i+1):02}.json")
     print(f"Loaded bids{(i+1):02}.json")
     t = timer(f"A3: bids{(i+1):02}")
