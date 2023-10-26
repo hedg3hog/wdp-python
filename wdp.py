@@ -225,7 +225,7 @@ def winner_determination_v2(bids):
     x = 0 # current first item
 
     for x in tqdm(range(len(bids) // 2 + 1)): # 
-        c_bids = bids[x:] # bids currently active
+        c_bids = bids # bids currently active
         c_path = [bids[x],] # current path
         c_sum = c_path[0][1] # current summ
         c_bids = prune_bids(c_bids, c_path)
