@@ -17,6 +17,7 @@ def load_items(item_file):
     f = open(item_file, "r")
     items = json.loads(f.read())
     f.close()
+    return items
 
 def save_bids(number_of_bids, items, max_items, bid_file):
     bids = gen_bids(number_of_bids, items, max_items_per_bid=max_items)
@@ -30,6 +31,7 @@ def save_bids(number_of_bids, items, max_items, bid_file):
 if __name__ == "__main__":
     f = open("./items/items1000.json")
     items1 = json.loads(f.read())
+    print(len(items1))
     f.close
 
-    save_bids(100, items1[:10], 10, "./bids/bids-10items-max10-100-01")
+    save_bids(20000, items1, 50, "./bids/bids16.json")
