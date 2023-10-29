@@ -127,7 +127,7 @@ class timer():
     
     def start(self):
         self.timer = time.time()
-        print(f"{self.name} started")
+        #print(f"{self.name} started")
 
     def stop(self):
         if self.timer == 0:
@@ -135,14 +135,14 @@ class timer():
             return 0
         t = (time.time()-self.timer)
         t = round(t, ndigits=4)
-        print(f"{self.name} stopped after {t} seconds")
+        #print(f"{self.name} stopped after {t} seconds")
         self.timer = 0
         return t
 
     def time(self):
         t = (time.time()-self.timer)
         t = round(t, ndigits=4)
-        print(f"{self.name} running: {t} seconds")
+        #print(f"{self.name} running: {t} seconds")
         return t
 
 
