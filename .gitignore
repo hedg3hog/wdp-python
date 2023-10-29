@@ -2,3 +2,4 @@
 .DS_Store
 *.pyc
 test.ipynb
+*.log
