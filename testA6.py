@@ -2,7 +2,7 @@ from wdp import *
 import logging
 
 DATASET_IDS = (10,11,12,13,14,15,16,17,18) # ids of the datasets to use (1 = bids 01)
-
+DATASET_IDS = range(1,19)
 
 formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s', datefmt='%m/%d/%Y %H:%M:%S')
 logging.basicConfig(filename="A6.log", format='%(asctime)s %(levelname)s %(message)s', datefmt='%m/%d/%Y %H:%M:%S')
