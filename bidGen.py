@@ -34,4 +34,4 @@ if __name__ == "__main__":
     print(len(items1))
     f.close
 
-    save_bids(20000, items1, 50, "./bids/bids16.json")
+    save_bids(40000, items1, 50, "./bids/bids18.json")

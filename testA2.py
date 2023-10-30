@@ -1,7 +1,7 @@
 from wdp import * 
 import logging
 
-DATASET_IDS = (10,11) # ids of the datasets to use (1 = bids 01)
+DATASET_IDS = (17,18) # ids of the datasets to use (1 = bids 01)
 
 
 formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s', datefmt='%m/%d/%Y %H:%M:%S')
