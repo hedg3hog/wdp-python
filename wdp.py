@@ -224,7 +224,7 @@ def winner_determination_v2(bids):
     h_path = list() # path of highest revenue
     x = 0 # current first item
 
-    for x in tqdm(range(len(bids) // 2 + 1), leave=False): # 
+    for x in tqdm(range(len(bids)), leave=False): # 
         c_bids = bids # bids currently active
         c_path = [bids[x],] # current path
         c_sum = c_path[0][1] # current summ
