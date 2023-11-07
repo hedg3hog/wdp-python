@@ -225,10 +225,10 @@ def winner_determination_v2(bids):
     x = 0 # current first item
 
     for x in tqdm(range(len(bids)), leave=False): # 
-        c_bids = bids # bids currently active
+        #c_bids = bids # bids currently active
         c_path = [bids[x],] # current path
         c_sum = c_path[0][1] # current summ
-        c_bids = prune_bids(c_bids, c_path)
+        c_bids = prune_bids(bids, c_path)
         c_remaining = bids_sum(c_bids) # highest remaining bids can contribute
         while len(c_bids) > 0:
             b = c_bids.pop(0)
@@ -273,3 +273,19 @@ def split_wdp_iterate(bids, subset_size = 1000):
             x = min(i + subset_size, len(bids))
             winner_list = winner_determination_v2(winner_list + bids[i:x])
     return winner_list
+
+
+def full_search(bids:list, best_value = 0, best_path = [], current_path = []):
+    if len(bids) == 0:
+        return best_path, best_value
+    for b in bids:
+        if bids_sum(current_path) + bids_sum(bids) < best_value:
+            return best_path, best_value
+        
+        if bids_sum(current_path) + b[1] > best_value:
+            best_value = bids_sum(current_path) + b[1]
+            best_path = current_path + [b,]
+        best_path, best_value = full_search(prune_bids(bids, current_path + [b,]), best_value, best_path, current_path + [b,])
+    return best_path, best_value
+
+    
