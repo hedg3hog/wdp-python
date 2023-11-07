@@ -29,8 +29,6 @@ try:
         validations.append(validate_winners(winners[-1]))
         logger.info(f"Dataset {i+1} ({x} Bids) finished in {times[-1]} seconds, validation:{validations[-1]}, value:{bid_sums[-1]}")
 
-        print(f"Dataset {i+1} finished in {times[-1]} seconds, validation:{validations[-1]}, value:{bid_sums[-1]}")
-
 except KeyboardInterrupt:
     logger.info("KeyboardInterrupt")
 
