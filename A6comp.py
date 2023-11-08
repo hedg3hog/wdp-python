@@ -2,7 +2,7 @@ from wdp import *
 import logging
 
 formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s', datefmt='%m/%d/%Y %H:%M:%S')
-logging.basicConfig(filename="FullSearch.log", format='%(asctime)s %(levelname)s %(message)s', datefmt='%m/%d/%Y %H:%M:%S')
+logging.basicConfig(filename="A6-compFS.log", format='%(asctime)s %(levelname)s %(message)s', datefmt='%m/%d/%Y %H:%M:%S')
 logger = logging.getLogger()
 ConsoleOutputHandler = logging.StreamHandler()
 logger.addHandler(ConsoleOutputHandler)
@@ -40,6 +40,6 @@ df =  pd.DataFrame(columns=["#bundles", "time", "value", "validation"])
 for i in range(len(bid_sums)):
    df.append({"dataset":i+10, "time":times[i], "value":bid_sums[i], "validation":validations[i]}, ignore_index=True)
 
-df.to_csv("A6.csv")
+df.to_csv("A6-compFS.csv")
 
 logger.info("######## END ######### \n")
