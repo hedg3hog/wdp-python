@@ -3,6 +3,31 @@ import time
 from tqdm import tqdm
 
 
+
+class Bundle:
+
+    def __init__(self, items:set, value:int, bidder_id:int=None, bid_id:int=None):
+        self.items = items
+        self.value = value
+        self.bidder_id = bidder_id
+        self.bid_id = bid_id
+    
+    def __repr__(self) -> str:
+        return f"Bundle({self.items}, {self.value}, {self.bidder_id}, {self.bid_id})"
+    
+    def __str__(self) -> str:
+        return f"Bundle({self.items}, {self.value}, {self.bidder_id}, {self.bid_id})"
+    
+    def __eq__(self, o: object) -> bool:
+        return self.bid_id == o.bid_id and self.bidder_id == o.bidder_id \
+            and self.value == o.value and self.items == o.items
+    
+    def in_bid(self, item):
+        return item in self.items
+    
+
+
+
 def validate_winners(winners:list):
     items = list()
     for w in winners:

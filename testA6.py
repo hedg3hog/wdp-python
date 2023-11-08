@@ -1,5 +1,6 @@
 from wdp import * 
 import logging
+import pandas as pd
 
 DATASET_IDS = (10,11,12,13,14,15,16,17,18) # ids of the datasets to use (1 = bids 01)
 DATASET_IDS = range(1,19)
@@ -32,4 +33,11 @@ for i in [i-1 for i in DATASET_IDS]:
 logger.info(bid_sums)
 logger.info(times)
 logger.info(validations)
+
+df =  pd.DataFrame(columns=["dataset", "time", "value", "validation"])
+for i in range(len(DATASET_IDS)):
+   df.append({"dataset":DATASET_IDS[i], "time":times[i], "value":bid_sums[i], "validation":validations[i]}, ignore_index=True)
+
+df.to_csv("A6.csv")
+
 logger.info("######## END ######### \n")
