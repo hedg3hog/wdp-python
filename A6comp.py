@@ -1,5 +1,6 @@
 from wdp import *
 import logging
+import pandas as pd
 
 formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s', datefmt='%m/%d/%Y %H:%M:%S')
 logging.basicConfig(filename="A6-compFS.log", format='%(asctime)s %(levelname)s %(message)s', datefmt='%m/%d/%Y %H:%M:%S')
