@@ -314,3 +314,6 @@ def full_search(bids:list, best_value = 0, best_path = [], current_path = []):
     return best_path, best_value
 
     
+def load_bidsID(filename):
+    bids = load_bids(filename)
+    return [(set(i[0], i[1])) for i in bids]
