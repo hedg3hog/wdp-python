@@ -315,5 +315,10 @@ def full_search(bids:list, best_value = 0, best_path = [], current_path = []):
 
     
 def load_bidsID(filename):
-    bids = load_bids(filename)
-    return [(set(i[0], i[1])) for i in bids]
+    with open(filename, "r") as f:
+        s = f.read()
+        f.close()
+    bids = json.loads(s)
+
+
+    return [(set(i["items"]), i["value"]) for i in bids]
