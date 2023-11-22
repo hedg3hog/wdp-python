@@ -3,3 +3,5 @@
 *.pyc
 test.ipynb
 *.log
+*.csv
+*.zip
