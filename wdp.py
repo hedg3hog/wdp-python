@@ -322,3 +322,32 @@ def load_bidsID(filename):
 
 
     return [(set(i["items"]), i["value"]) for i in bids]
+
+
+def full_search2(bids):
+    stack = [(bids, 0, [], [])] # stack mit erstem element befüllen
+    best_value = 0
+    best_path = []
+
+    while stack: # while stack not empty
+        current_bids, current_value, current_path, current_current_path = stack.pop()
+
+        if len(current_bids) == 0:
+            if current_value > best_value:
+                best_value = current_value
+                best_path = current_path
+        else:
+            b = current_bids[0]
+
+            if bids_sum(current_current_path) + bids_sum(current_bids) < best_value:
+                continue
+
+            if bids_sum(current_current_path) + b[1] > best_value:
+                best_value = bids_sum(current_current_path) + b[1]
+                best_path = current_current_path + [b,]
+
+            new_bids = prune_bids(current_bids, current_current_path + [b,])
+            stack.append((new_bids, best_value, best_path, current_current_path + [b,]))
+            stack.append((current_bids[1:], current_value, current_path, current_current_path))
+
+    return best_path, best_value

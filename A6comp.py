@@ -19,7 +19,7 @@ i = -1 + 3
 try:
     all_bids = load_bids(f"./bids/bids{(i+1):02}.json")
     logger.info(f"Loaded bids{(i+1):02}.json ({len(all_bids)} bids)")
-    for x in range(10,37):
+    for x in range(10,101):
         bids = all_bids[:x]
         t = timer(f"bids{(i+1):02}")
         winners.append(split_wdp_iterate(bids))
@@ -37,10 +37,12 @@ logger.info(bid_sums)
 logger.info(times)
 logger.info(validations)
 
-df =  pd.DataFrame(columns=["#bundles", "time", "value", "validation"])
+df =  list()
 for i in range(len(bid_sums)):
-   df.append({"dataset":i+10, "time":times[i], "value":bid_sums[i], "validation":validations[i]}, ignore_index=True)
+   df.append({"dataset":i+10, "time":times[i], "value":bid_sums[i], "validation":validations[i]})
 
-df.to_csv("A6-compFS.csv")
+df =  pd.DataFrame(df)
+
+df.to_csv("A6-comp.csv")
 
 logger.info("######## END ######### \n")
