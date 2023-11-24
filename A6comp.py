@@ -3,7 +3,7 @@ import logging
 import pandas as pd
 
 formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s', datefmt='%m/%d/%Y %H:%M:%S')
-logging.basicConfig(filename="FullSearch.log", format='%(asctime)s %(levelname)s %(message)s', datefmt='%m/%d/%Y %H:%M:%S')
+logging.basicConfig(filename="A6.log", format='%(asctime)s %(levelname)s %(message)s', datefmt='%m/%d/%Y %H:%M:%S')
 logger = logging.getLogger()
 ConsoleOutputHandler = logging.StreamHandler()
 logger.addHandler(ConsoleOutputHandler)
@@ -55,7 +55,7 @@ for i in range(19,87):
         df.append({"datasetsize":bundle_sizes[i], "time":times[i], "value":bid_sums[i], "validation":validations[i]})
 
     df =  pd.DataFrame(df)
-    df.to_csv(f"csv/FS-comp-D{DATASET_NR}.csv")
+    df.to_csv(f"csv/A6-comp-D{DATASET_NR}.csv")
     logger.info(bid_sums)
     logger.info(times)
     logger.info(validations)
