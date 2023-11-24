@@ -37,7 +37,7 @@ for i in range(19,87):
             bundle_sizes.append(len(bids))
             print(bundle_sizes[-1])
             t = timer(f"bids{(i+1):02}")
-            winners.append(split_wdp_iterate(bids)[0])
+            winners.append(split_wdp_iterate(bids))
             times.append(t.stop())
             #logger.debug(f"list of winners: {winners[-1]}")
             bid_sums.append(bids_sum(winners[-1]))
