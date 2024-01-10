@@ -2,11 +2,11 @@ from wdp import *
 import logging
 import pandas as pd
 
-DATASET_IDS = (10,11,12,13,14,15,16,17,18) # ids of the datasets to use (1 = bids 01)
-DATASET_IDS = range(1,19)
+DATASET_IDS = (6,7,12,13) # ids of the datasets to use (1 = bids 01)
+#DATASET_IDS = range(1,19)
 
 formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s', datefmt='%m/%d/%Y %H:%M:%S')
-logging.basicConfig(filename="A6.log", format='%(asctime)s %(levelname)s %(message)s', datefmt='%m/%d/%Y %H:%M:%S')
+logging.basicConfig(filename="A6-24.log", format='%(asctime)s %(levelname)s %(message)s', datefmt='%m/%d/%Y %H:%M:%S')
 logger = logging.getLogger()
 ConsoleOutputHandler = logging.StreamHandler()
 logger.addHandler(ConsoleOutputHandler)
@@ -38,6 +38,6 @@ df =  pd.DataFrame(columns=["dataset", "time", "value", "validation"])
 for i in range(len(DATASET_IDS)):
    df.append({"dataset":DATASET_IDS[i], "time":times[i], "value":bid_sums[i], "validation":validations[i]}, ignore_index=True)
 
-df.to_csv("A6.csv")
+df.to_csv("A6-24.csv")
 
 logger.info("######## END ######### \n")
