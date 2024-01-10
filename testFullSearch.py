@@ -3,7 +3,7 @@ import logging
 import pandas as pd
 
 formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s', datefmt='%m/%d/%Y %H:%M:%S')
-logging.basicConfig(filename="FullSearch.log", format='%(asctime)s %(levelname)s %(message)s', datefmt='%m/%d/%Y %H:%M:%S')
+logging.basicConfig(filename="FullSearch24.log", format='%(asctime)s %(levelname)s %(message)s', datefmt='%m/%d/%Y %H:%M:%S')
 logger = logging.getLogger()
 ConsoleOutputHandler = logging.StreamHandler()
 logger.addHandler(ConsoleOutputHandler)
@@ -13,14 +13,14 @@ ConsoleOutputHandler.setFormatter(formatter)
 
 
 START = 10
-END = 70
-DATASET_NR = 4
+END = 100
+DATASET_NR = 3
 STEP = 1
 
 END = END + 1
 i = -1 + DATASET_NR
 b = False
-for i in range(19,87):
+for i in range(2,4):
     winners = list()
     times = list()
     bid_sums = list()
@@ -30,7 +30,7 @@ for i in range(19,87):
         break
     DATASET_NR = i+1
     try:
-        all_bids = load_bids(f"./bids2/comp-bids{(i+1):02}.json")
+        all_bids = load_bidsID(f"./bids/bids{(i+1):02}-ID.json")
         logger.info(f"Loaded bids{(i+1):02}.json ({len(all_bids)} bids)")
         for x in range(START,END, STEP):
             bids = all_bids[:x]
@@ -44,10 +44,12 @@ for i in range(19,87):
             #logger.info(bid_sums[-1])
             validations.append(validate_winners(winners[-1]))
             logger.info(f"Dataset {i+1} ({bundle_sizes[-1]} Bids) finished in {times[-1]} seconds, validation:{validations[-1]}, value:{bid_sums[-1]}")
+            if times[-1] > 3600:
+                break
 
     except KeyboardInterrupt:
         logger.info("KeyboardInterrupt")
-        b = True
+    b = True
 
 
     df =  list()
@@ -55,7 +57,7 @@ for i in range(19,87):
         df.append({"datasetsize":bundle_sizes[i], "time":times[i], "value":bid_sums[i], "validation":validations[i]})
 
     df =  pd.DataFrame(df)
-    df.to_csv(f"csv/FS-comp-D{DATASET_NR}.csv")
+    df.to_csv(f"csv/FS-comp-D{DATASET_NR:02}.csv")
     logger.info(bid_sums)
     logger.info(times)
     logger.info(validations)
